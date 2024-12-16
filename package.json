@@ -1,0 +1,21 @@
+{
+  "name": "playwright-sql-reporter",
+  "version": "1.0.0",
+  "description": "playwright reporter that generates an insert sql string",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umer-shahzaddar/playwright-sql-reporter.git"
+  },
+  "author": "umer shahzad dar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umer-shahzaddar/playwright-sql-reporter/issues"
+  },
+  "homepage": "https://github.com/umer-shahzaddar/playwright-sql-reporter#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2"
+  }
+}
