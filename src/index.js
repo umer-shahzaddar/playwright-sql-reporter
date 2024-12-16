@@ -1,4 +1,4 @@
-import { basename } from 'path';  // Use the path module to clean up the file path
+import { basename } from 'path';
 
 class CustomSQLReporter {
   constructor(options) {
@@ -6,13 +6,16 @@ class CustomSQLReporter {
   }
 
   onTestEnd(test, result) {
-    // Extracting the file name from the test's title path
-    const file = basename(test.titlePath().slice(-2, -1)[0]); // Get the file name from the last part of the path
-    const title = test.title;
+    // Extracting the browser name from test.title
+    const title = test.title;  // e.g., 'chromium example.spec.js has title'
+    const file = basename(test.titlePath().slice(-2, -1)[0]); // Get the file name
     const { status, duration, startTime } = result;
 
+    // Extract the browser name from the title string (first word)
+    const projectId =  (test.titlePath().join(' ')).split(' ')[1] || 'unknown'; // Extract first part before space as browser name
+
     // Add each test result to the array
-    this.testResults.push(`('${file || "unknown"}', '${title || "unknown"}', 'chromium', '${status || "unknown"}', '${startTime || ""}', ${duration || 0})`);
+    this.testResults.push(`('${file || "unknown"}', '${title || "unknown"}', '${projectId}', '${status || "unknown"}', '${startTime || ""}', ${duration || 0})`);
   }
 
   onEnd() {
