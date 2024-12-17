@@ -3,4 +3,5 @@ node_modules
 test-results
 tests
 tests-examples
+sql-report
 playwright.config.ts
