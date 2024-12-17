@@ -18,16 +18,14 @@ Install from npm:
 
 ---
 
-## Configuration
+## Usage
 
 To integrate the SQL reporter with Playwright, modify your **`playwright.config.js`** file:
 
 ```javascript
-const CustomSQLReporter = require('./index.js');
-
 module.exports = {
   reporter: [
-    ['./index.js', { tableName: 'test_results' }]
+    ['playwright-sql-reporter', { tableName: 'test_results' }]
   ],
 };
 ```
@@ -35,46 +33,7 @@ module.exports = {
 ### Options
 
 - `tableName` (optional): Customize the name of the table in the SQL output.  
-  Default: `'default_table_name'`
-
----
-
-## Usage
-
-1. Run Playwright tests:
-   ```bash
-   npx playwright test
-   ```
-
-2. Upon test completion, the reporter will:
-
-   - Generate SQL `INSERT` statements for all test results.
-   - Save the SQL statements in the following file:
-     ```
-     sql-reporter/sql-statement.sql
-     ```
-
-3. Example SQL output:
-   ```sql
-   INSERT INTO test_results (file, title, projectId, status, startTime, duration)
-   VALUES 
-   ('example.spec.js', 'has title', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 628),
-   ('example.spec.js', 'get started link', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 669);
-   ```
-
----
-
-## File Structure
-
-```
-playwright-sql-reporter/
-│
-├── index.js                # Custom SQL Reporter code
-├── playwright.config.js    # Playwright configuration
-├── package.json            # Project dependencies
-└── sql-reporter/           # Output directory for SQL files
-    └── sql-statement.sql   # Generated SQL statements
-```
+  Default: `'your_table_name'`
 
 ---
 
@@ -88,32 +47,6 @@ VALUES
 ('example.spec.js', 'has title', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 628),
 ('example.spec.js', 'get started link', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 669);
 ```
-
----
-
-## Customization
-
-You can customize the table name dynamically by modifying the `reporter` configuration in your `playwright.config.js` file:
-
-```javascript
-reporter: [
-  ['./index.js', { tableName: 'custom_table_name' }]
-]
-```
-
----
-
-## Troubleshooting
-
-- **Directory Not Found:**  
-  If the `sql-reporter/` directory does not exist, the reporter will automatically create it.
-
-- **`path` Module Error:**  
-  Ensure that you have `path` and `fs` modules properly imported:
-  ```javascript
-  const path = require('path');
-  const fs = require('fs');
-  ```
 
 ---
 
