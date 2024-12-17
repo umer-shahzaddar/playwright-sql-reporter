@@ -12,21 +12,9 @@ A **custom Playwright reporter** that generates SQL `INSERT` statements for test
 
 ## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/playwright-sql-reporter.git
-   cd playwright-sql-reporter
-   ```
+Install from npm:
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Make sure you have Playwright installed:
-   ```bash
-   npm install @playwright/test
-   ```
+    npm install playwright-sql-reporter
 
 ---
 
