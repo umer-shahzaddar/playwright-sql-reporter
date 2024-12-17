@@ -28,7 +28,7 @@ class CustomSQLReporter {
         this.testResults.join(',\n') + ';';
 
       // Define the target file path
-      const dirPath = path.join(__dirname, './sql-report'); // Relative path for directory
+      const dirPath = path.join(path.resolve(), './sql-report'); // Relative path for directory
       const filePath = path.join(dirPath, 'sql-statement.sql'); // Path for the SQL file
 
       // Ensure the directory exists
