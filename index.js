@@ -7,22 +7,37 @@ class CustomSQLReporter {
     this.tableName = options.tableName || 'your_table_name';
   }
 
-  onTestEnd(test, result) {
-    const title = test.title;
-    const file = (test.titlePath().join(' ')).split(' ')[2] || 'unknown'; // Get the file name
-    const { status, duration, startTime } = result;
+  onBegin(config, suite) {
+    this.suite = suite;
+  }
 
-    // Extract the browser name from the title string (first word)
-    const projectId = (test.titlePath().join(' ')).split(' ')[1] || 'unknown'; // Extract first part before space as browser name
+  onStdOut(chunk) {
+    const text = chunk.toString("utf-8");
+    process.stdout.write(text);
+  }
 
-    // Format the start time to 'YYYY-MM-DD HH:mm:ss.SSS'
-    const formattedStartTime = startTime ? new Date(startTime).toISOString().replace('T', ' ').split('.')[0] : ''; 
-
-    // Add each test result to the array
-    this.testResults.push(`('${file || "unknown"}', '${title || "unknown"}', '${projectId}', '${status || "unknown"}', '${formattedStartTime || ""}', ${duration || 0})`);
+  onStdErr(chunk) {
+    const text = chunk.toString("utf-8");
+    process.stderr.write(text);
   }
 
   onEnd() {
+    this.suite.allTests().forEach((test) => {
+      const title = test.title;
+      const file = (test.titlePath().join(' ')).split(' ')[2] || 'unknown'; // Get the file name
+      const result = test.results.at(-1);
+      const { status, duration, startTime } = result;
+
+      // Extract the browser name from the title string (first word)
+      const projectId = (test.titlePath().join(' ')).split(' ')[1] || 'unknown'; // Extract first part before space as browser name
+
+      // Format the start time to 'YYYY-MM-DD HH:mm:ss.SSS'
+      const formattedStartTime = startTime ? new Date(startTime).toISOString().replace('T', ' ').split('.')[0] : '';
+
+      // Add each test result to the array
+      this.testResults.push(`('${file || "unknown"}', '${title || "unknown"}', '${projectId}', '${status || "unknown"}', '${formattedStartTime || ""}', ${duration || 0})`);
+    });
+
     // When all tests are done, construct the final SQL insert statement
     if (this.testResults.length > 0) {
       const sqlStatement = `INSERT INTO ${this.tableName} (file, title, projectId, status, startTime, duration) VALUES\n` +
@@ -42,6 +57,8 @@ class CustomSQLReporter {
 
       console.log(`SQL statement has been saved to ${filePath}`);
     }
+
+
   }
 }
 

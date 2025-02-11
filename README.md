@@ -6,7 +6,7 @@ A **custom Playwright reporter** that generates SQL `INSERT` statements for test
 
 - Generates SQL statements containing test results (`file`, `title`, `projectId`, `status`, `startTime`, `duration`).
 - Supports customizable table names through options.
-- Outputs the SQL to a file (`sql-reporter/sql-statement.sql`).
+- Outputs the SQL to a file (`sql-report/sql-statement.sql`).
 
 ---
 
@@ -44,8 +44,8 @@ Here’s a sample of what the reporter generates:
 ```sql
 INSERT INTO test_results (file, title, projectId, status, startTime, duration)
 VALUES 
-('example.spec.js', 'has title', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 628),
-('example.spec.js', 'get started link', 'chromium', 'passed', 'Mon Dec 16 2024 14:12:37 GMT+0100', 669);
+('example.spec.js', 'has title', 'chromium', 'passed', '2025-02-11 15:49:18', 995),
+('example.spec.js', 'get started link', 'chromium', 'passed', '2025-02-11 15:49:18', 1145);
 ```
 
 ---
