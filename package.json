@@ -1,6 +1,6 @@
 {
   "name": "playwright-sql-reporter",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "playwright reporter that generates sql statement",
   "main": "index.js",
   "scripts": {},
