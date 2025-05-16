@@ -11,16 +11,6 @@ class CustomSQLReporter {
     this.suite = suite;
   }
 
-  onStdOut(chunk) {
-    const text = chunk.toString("utf-8");
-    process.stdout.write(text);
-  }
-
-  onStdErr(chunk) {
-    const text = chunk.toString("utf-8");
-    process.stderr.write(text);
-  }
-
   onEnd() {
     this.suite.allTests().forEach((test) => {
       const title = test.title;
